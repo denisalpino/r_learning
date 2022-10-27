@@ -1,6 +1,6 @@
 
 # функция, которая удаляет переменные
-#rm
+rm
 
 # функция со сторонним эффектом, принимает значение из-вне и преобразовывает его
 function_name <- function(x) {
@@ -15,9 +15,19 @@ function_name <- function() {
    return(x)
 }
 
+--------------------------------
+# ОБЗИЙ ГЛОССАРИЙ ЗА 1 УРОК
+?help
+?help.search
+?"<-"
+?ls # то же, что и окно enviroment
+?"function"
+?rm # удаляет объект
+?rnorm
+--------------------------------
+
 # создаение вектора
 x <- c(13, 666, c('alpino'), TRUE, NA)
-
 print(x)
 
 # создание вектора с шагом 1
@@ -44,9 +54,114 @@ print(x)
 x <- rep(0:1, length.out = 3)
 print(x)
 
+# Practice
+
+u <- seq(0, 1, 1/3)
+v <- seq(0, 1, 1/7)
+c(u, v)
+
+w <- unique(sort(c(u, v)))
+
+# Проименованные (двумерные) вектора
+a <- c(first = 1, second = 2, third = 3, 4)
+print(a)
+names(a) <- c('one', 'two', 'three', 'four')
+print(a)
+
+--------------------------------
+# ОБЩИЙ ГЛОССАРИЙ ЗА 2 УРОК
+?c
+?":"
+?seq
+?rep
+?print
 
 
+?sum #суммирует значения, при булевых значениях является каунтером
+?all.equal # проверяет эквивалентность чисел с плавающей запятой
+?typeof
+?is.logical
+
+#преобразовывают переменную в указанный тип данных
+?as.logical
+?as.integer
+?as.character
+?as.numeric
+
+?length
+?names # функция, присваивающая атрибут имени каждой колонке списка
+-------------------------------- 
+
+# Условные выражения обыкновенные
+if (1 > 0) {
+  print('Mickey win!')
+} else
+  print('Mickey will eat them')
+
+# Условное выражение сокращенное
+ifelse(runif(8) > 0.5, 'Орел', 'Решка')
+
+# Вложенное условное выражение
+x <- runif(8)
+ifelse(x > 2/3, 'Ножницы',
+       ifelse(x > 1/3, 'Камень', 'Бумага')
+       )
+
+# Множественный выбор
+switch('factorial',
+       sum = 5 + 5,
+       product = 5 * 5,
+       factorial = factorial(5),
+       0)
 
 
+# Цикл repeat (while)
+i <- 0
+repeat {
+  i <- i + runif(1)
+  if (i > 5) break
+  print(i)
+}
+
+# Цикл for
+for (i in 1:8) {
+  ifelse(i %% 2 == 0,
+         print('Четное'),
+         print('Нечетное')
+         )
+}
+
+for (i in letters) {
+  if (i == 'b') next
+  if (i == 'd') break
+  print(i)
+}
+
+
+# Practice
+
+# Цикличный подход к подсчету корней значений списка в 22 раза медленнее
+v <- 1:1e7
+system.time({
+  x <- 0
+  for (i in v) x[i] <- sqrt(v[i])
+})
+
+#Векторный подход к подсчету корней каждого значения из списка в 22 раза быстрее
+v <- 1:1e7
+system.time({
+  x <- sqrt(v)
+})
+
+# Задание на поиск значений в пределах от -0.2 до 0.3
+set.seed(1337)
+x <- runif(1e6, min = -1, max = 1)
+sum(x <= 0.3 & x >= -0.2)
+
+
+# Написать кубик для игры в монополию
+dice_roll <- function(n) {
+  as.integer(runif(n, 1, 7))
+}
 
 

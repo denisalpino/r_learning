@@ -49,8 +49,8 @@ data[[1]][2]
 my_data  <- data.frame(Name = name, Age = age, Status = is_maried)
 
 -------------------------------------------------------------------------------
-# ГЛОССАРИЙ 1 УРОКА
-?c
+  # ГЛОССАРИЙ 1 УРОКА
+  ?c
 ?"["
 ?"&"
 ?mean
@@ -60,9 +60,9 @@ my_data  <- data.frame(Name = name, Age = age, Status = is_maried)
 ?sd
 ?abs
 -------------------------------------------------------------------------------  
-
-?read.table('file_name.file_type', header = T/F, sep = '', dec = '.',
-stringsAsFactors = TRUE)
+  
+  ?read.table('file_name.file_type', header = T/F, sep = '', dec = '.',
+              stringsAsFactors = TRUE)
 ?read.csv
 
 my_data <- read.csv('evals.csv', stringsAsFactors = TRUE)
@@ -120,9 +120,9 @@ my_data6 <- my_data[,11:24]
 my_data7 <- cbind(my_data6, my_data5)
 
 -------------------------------------------------------------------------------
-# ГЛОССАРИЙ 2 УРОКА
-?read.table('file_name.file_type', header = T/F, sep = '', dec = '.',
-stringsAsFactors = TRUE)
+  # ГЛОССАРИЙ 2 УРОКА
+  ?read.table('file_name.file_type', header = T/F, sep = '', dec = '.',
+              stringsAsFactors = TRUE)
 ?read.csv('file_name.file_type', stringsAsFactors = TRUE)
 ?head
 ?tail
@@ -137,9 +137,9 @@ stringsAsFactors = TRUE)
 ?rbind
 ?cbind
 -------------------------------------------------------------------------------  
-
-# if
-a <- 1
+  
+  # if
+  a <- 1
 if (a > 0) {
   print('a is winner')
 } else {
@@ -185,6 +185,86 @@ for (i in 1:nrow(my_data)) {
     print(my_data$quality[i])
   }
 }
+
+my_data$quality2 <- ifelse(my_data$score > 4, 'good', 'bad')
+
+# while
+i <- 1
+while (i > 51) {
+  print(my_data$score[i])
+  i <- i + 1
+}
+
+# Задача на сравнение сосдних членов
+good_months <- NULL
+i <- 1
+while (i < length(AirPassengers)){
+  if (AirPassengers[i] < AirPassengers[i+1]){
+    good_months <- c(good_months, AirPassengers[i+1])
+  }
+  i <- i + 1
+}
+# ИЛИ
+good_months <- AirPassengers[-1][AirPassengers[-1] > AirPassengers[-144]]
+
+# Задача на поиск скользящего среднего (разность куммулятивных сумм)
+cx <- c(0, cumsum(AirPassengers))    
+moving_average <- (cx[(11):length(cx)] - cx[1:(length(cx) - 10)]) / 10
+# ИЛИ
+moving_average <- numeric(135)    
+last_index <- length(AirPassengers) - 9    
+for (i in 1:last_index) {    
+  end <- i + 9    
+  moving_average[i] <- mean(AirPassengers[i:end])    
+}
+-------------------------------------------------------------------------------
+  # ГЛОССАРИЙ 3 УРОКА
+  ?if
+?ifelse
+?for
+?while
+?cumsum
+-------------------------------------------------------------------------------
+  
+  df <- mtcars
+str(df)
+df$vs <- factor(df$vs, labels = c('V', 'S'))
+df$am <- factor(df$am, labels = c('Auto', 'Manual'))
+
+median(df$mpg)
+mean(df$disp)
+sd(df$hp)
+range(df$cyl)
+
+mean_disp <- mean(df$disp)
+
+mean(df$mpg[df$cyl == 6])
+mean(df$mpg[df$cyl == 6 & df$vs == 'V'])
+sd(df$hp[df$cyl != 3 & df$am == 'Auto'])
+
+mean_hp_vs <- aggregate(x = df$hp, by = list(df$vs), FUN = mean)
+colnames(mean_hp_vs) <- c('VS', 'Mean HP')
+
+aggregate(hp ~ vs, df, mean)
+
+aggregate(hp ~ vs + am, df, mean)
+
+aggregate(x = df[, -c(8,9)], by = list(df$am), FUN = median)
+
+aggregate(df[, c(1,3)], by = list(df$am, df$vs), FUN = sd)
+aggregate(cbind(mpg, disp) ~ am + vs, df, sd)
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -226,7 +226,7 @@ for (i in 1:last_index) {
 ?cumsum
 -------------------------------------------------------------------------------
   
-  df <- mtcars
+df <- mtcars
 str(df)
 df$vs <- factor(df$vs, labels = c('V', 'S'))
 df$am <- factor(df$am, labels = c('Auto', 'Manual'))
@@ -253,6 +253,50 @@ aggregate(x = df[, -c(8,9)], by = list(df$am), FUN = median)
 
 aggregate(df[, c(1,3)], by = list(df$am, df$vs), FUN = sd)
 aggregate(cbind(mpg, disp) ~ am + vs, df, sd)
+
+descr <- describe(x = df)
+descr2 <- describeBy(x = df, group = df$vs)
+descr2$V
+descr2$S
+descr2 <- describeBy(x = df, group = df$vs, mat = T, digits = 1)
+descr3 <- describeBy(x = df, group = df$vs, mat = T, digits = 1, fast = T)
+describeBy(df$qsec, group = list(df$vs, df$am), mat = T, digits = 1, fast = T)
+
+sum(is.na(df))
+
+df$mpg[1:10] <- NA
+
+mean(df$mpg, na.rm = T)
+aggregate(mpg ~ am, df, sd)
+describe()
+
+
+aq <- subset(airquality[airquality$Month %in% c(7:9), ])
+result <- aggregate(Ozone ~ Month, aq, length)
+
+
+describeBy(iris, iris$Species)
+
+-------------------------------------------------------------------------------
+# ГЛОССАРИЙ 4 УРОКА
+?str
+?factor
+?labels
+?aggregate
+?FUN = length, mean, sd, median...
+?describe
+?describeBy
+?group
+?mat
+?digit
+?fast
+?is.na
+?na.rm
+?replace
+?%in%
+-------------------------------------------------------------------------------
+
+
 
 
 

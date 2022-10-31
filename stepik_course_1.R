@@ -61,7 +61,7 @@ my_data  <- data.frame(Name = name, Age = age, Status = is_maried)
 ?abs
 -------------------------------------------------------------------------------  
   
-  ?read.table('file_name.file_type', header = T/F, sep = '', dec = '.',
+?read.table('file_name.file_type', header = T/F, sep = '', dec = '.',
               stringsAsFactors = TRUE)
 ?read.csv
 
@@ -69,15 +69,10 @@ my_data <- read.csv('evals.csv', stringsAsFactors = TRUE)
 
 head(my_data, 3)
 tail(my_data, 5)
-
-View(my_data) # позволяет увидеть в виде таблицы 1000 наблюдений
-
-str(my_data) # позволяет увидеть тип данных
-
-names(my_data) # возвращает названия колонок
-
-summary(my_data) # возвращает  ьинимальное, максимальное, мидеанное, среднее
-# значения и 1, 3 квартили
+View(my_data)
+str(my_data)
+names(my_data)
+summary(my_data)
 
 b <- my_data$score
 
@@ -120,16 +115,17 @@ my_data6 <- my_data[,11:24]
 my_data7 <- cbind(my_data6, my_data5)
 
 -------------------------------------------------------------------------------
-  # ГЛОССАРИЙ 2 УРОКА
-  ?read.table('file_name.file_type', header = T/F, sep = '', dec = '.',
+# ГЛОССАРИЙ 2 УРОКА
+?read.table('file_name.file_type', header = T/F, sep = '', dec = '.',
               stringsAsFactors = TRUE)
 ?read.csv('file_name.file_type', stringsAsFactors = TRUE)
 ?head
 ?tail
-?View
-?str
-?names
-?summary
+?View # позволяет увидеть в виде таблицы 1000 наблюдений
+?str # позволяет увидеть тип данных
+?names # возвращает названия колонок
+?summary # возвращает  минимальное, максимальное, медианное, среднее
+# значения и 1, 3 квартили
 ?'$'
 ?nrow
 ?ncol
@@ -138,8 +134,8 @@ my_data7 <- cbind(my_data6, my_data5)
 ?cbind
 -------------------------------------------------------------------------------  
   
-  # if
-  a <- 1
+# if
+a <- 1
 if (a > 0) {
   print('a is winner')
 } else {
@@ -302,7 +298,54 @@ describeBy(iris, iris$Species)
 ?%in%
 -------------------------------------------------------------------------------
 
+hist(df$mpg, breaks = 20, xlab = "MPG")
+boxplot(mpg ~ am, df, ylab = 'MPG')
+plot(df$mpg, df$hp)
 
+library(ggplot2)
+ggplot(df, aes(x = mpg))+
+  geom_histogram(fill = 'white', col = 'black', binwidth = 2)
+ggplot(df, aes(x = mpg, fill = am))+
+  geom_dotplot()
+ggplot(df, aes(x = mpg))+
+  geom_density(fill = 'red')
+ggplot(df, aes(x = mpg, fill = am))+
+  geom_density(alpha = 0.5)
+
+ggplot(df, aes(x = am, y = hp, col = vs))+
+  geom_boxplot()
+
+my_plot <- ggplot(df, aes(x = mpg, y = hp, col = vs, size = qsec))+
+  geom_point()
+
+my_plot2 <- ggplot(df, aes(x = am, y = hp, col = vs))
+my_plot2 + geom_boxplot()
+
+# Документация по ggplot2: https://ggplot2.tidyverse.org/reference/
+
+ggplot(airquality, aes(group = Month, x = Month, y = Ozone))+
+  geom_boxplot()
+plot1 <- ggplot(mtcars, aes(x = mpg, y = disp, col = hp))+
+  geom_point()
+
+write.csv(df, "df.csv")
+save(mean_hp_vs, file = 'mean_hp_vs.RData')
+
+-------------------------------------------------------------------------------
+# ГЛОССАРИЙ 5 УРОКА
+?hist(...)
+?boxplot()
+?plot()
+# функции модуля ggplot2
+?ggplot(..., aes(x = ..., y = ..., col = ..., fill = ..., size = ...))+
+  ?geom_histogram(binwidth = 1/2/3/...)
+  ?geom_dotplot()
+  ?geom_boxplot()
+  ?geom_density(alpha = 0.1/0.11/.../1, fill = '...', col = '...')
+  ?geom_point()
+?write.csv(..., 'created_file_name.csv')
+?save(..., file = 'created_file_name.RData')
+-------------------------------------------------------------------------------
 
 
 

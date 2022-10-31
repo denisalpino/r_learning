@@ -205,11 +205,12 @@ while (i < length(AirPassengers)){
   i <- i + 1
 }
 # ИЛИ
-good_months <- AirPassengers[-1][AirPassengers[-1] > AirPassengers[-144]]
+good_months <- AirPassengers[-1][AirPassengers[-1] > 
+                                   AirPassengers[-length(AirPassengers)]]
 
 # Задача на поиск скользящего среднего (разность куммулятивных сумм)
-cx <- c(0, cumsum(AirPassengers))    
-moving_average <- (cx[(11):length(cx)] - cx[1:(length(cx) - 10)]) / 10
+cs = c(0, cumsum(AirPassengers[1:144]))
+moving_average <- (cs[11:145] - cs[1:135]) / 10
 # ИЛИ
 moving_average <- numeric(135)    
 last_index <- length(AirPassengers) - 9    
@@ -218,8 +219,8 @@ for (i in 1:last_index) {
   moving_average[i] <- mean(AirPassengers[i:end])    
 }
 -------------------------------------------------------------------------------
-  # ГЛОССАРИЙ 3 УРОКА
-  ?if
+# ГЛОССАРИЙ 3 УРОКА
+?if
 ?ifelse
 ?for
 ?while
@@ -280,27 +281,26 @@ describeBy(iris, iris$Species)
 -------------------------------------------------------------------------------
 # ГЛОССАРИЙ 4 УРОКА
 ?str
-?factor
-?labels
-?aggregate
-?FUN = length, mean, sd, median...
-?describe
-?describeBy
-?group
-?mat
-?digit
-?fast
+?factor(...$..., labels = c('...', '...'))
+
+# функция aggregate возвращает матрицу со средним/медианным/... значением
+#колонки "X" в соответствии с указанными критериями отбора "BY"
+?aggregate(x = ...$..., by = list(...$...,...$...), FUN = mean/sd/length/...)
+
+# все функции семейства DESCRIBE возвращают основные значения по заданным
+#критериям (в соответствии с разбиением на группыб в виде матрицы, с округлением
+#для DESCRIBEBY)
+?describe(x = ...)
+?describeBy(x = ...$..., group = list(...$..., ...$...), mat = T/F,
+            digits = 0/1/2/..., fast = T/F)
 ?is.na
 ?na.rm
-?replace
+# Функция replace проверяет объект "X" на предмет условия "LIST", если оно
+#оказывается TRUE, то соответствущее значение в объекте "X" заменяется на
+#значения "VALUES"
+?replace(x, list, values)
 ?%in%
 -------------------------------------------------------------------------------
-
-
-
-
-
-
 
 
 

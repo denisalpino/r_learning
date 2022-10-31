@@ -343,9 +343,120 @@ save(mean_hp_vs, file = 'mean_hp_vs.RData')
   ?geom_boxplot()
   ?geom_density(alpha = 0.1/0.11/.../1, fill = '...', col = '...')
   ?geom_point()
+# 'col' отвечает за цвет границ, "fill" - за заливку фигуры
 ?write.csv(..., 'created_file_name.csv')
 ?save(..., file = 'created_file_name.RData')
 -------------------------------------------------------------------------------
+
+grants <- read.csv('grants.csv', stringsAsFactors = TRUE)
+grants$status <- factor(grants$status, labels = c("Not funded", "Funded"))
+
+t1 <- table(grants$status)
+dim(t1)
+
+t2 <- table(status = grants$status, field = grants$field)
+dim(t2)
+
+prop.table(t2)
+prop.table(t2, 1) # сумма строк равняется 100%
+prop.table(t2, 2) # сумма столбцов равняется 100%
+
+t3 <- table(Years = grants$years_in_uni, Field = grants$field, 
+            Status = grants$status)
+dim(t3)
+
+dimnames(HairEyeColor) # возвращает названия измерений
+
+# Задача на поиск рыжеволосых от общего числа голубоглазых мужчин
+red_men <- prop.table(HairEyeColor[, , 'Male'], 2)['Red', 'Blue']
+
+# Задача на суммирование зеленоглазых женщин
+sum(HairEyeColor[,'Green','Female'])
+
+barplot(t1)
+barplot(t2)
+barplot(t2, legend.text = T, args.legend = list(x = 'topright'))
+barplot(t2, legend.text = T, args.legend = list(x = 'topright'), beside = T)
+
+mosaicplot(t2)
+
+# Задача на построение графика распределения цвета глаз по цвету волос у женщин
+mydata <- as.data.frame(HairEyeColor[, , 'Female'])
+obj <- ggplot(data = mydata, aes(x = Hair, y = Freq, fill = Eye))+
+  geom_bar(stat="identity", position = position_dodge())+
+  scale_fill_manual(values=c("Brown", "Blue", "Darkgrey", "Darkgreen"))
+
+binom.test(x = 5, n = 20, p = 0.5)
+binom.test(t1)
+
+t1
+chisq.test(t1)
+chi <- chisq.test(t1)
+chi$expected
+chi$observed
+
+t2
+chisq.test(t2)
+
+fisher.test(t2)
+
+# Задача на поиск взаимосвязи между огранкой и цветом бриллианта
+main_stat <- chisq.test(table(diamonds$cut, diamonds$color))$statistic
+
+# Задача на поиск взаимосвязи между ценой и каратом бриллианта
+main_stat <- chisq.test(as.integer(diamonds$price >= mean(diamonds$price)), 
+                                   as.integer(diamonds$carat >= 
+                                                mean(diamonds$carat)))$statistic
+
+#Задача на поиск взимосвязи типа коробки передач и типа двигателя
+fisher_test <- fisher.test(mtcars$am, mtcars$vs)$p
+
+-------------------------------------------------------------------------------
+# ГЛОССАРИЙ 6 УРОКА
+?table(Name1 = ...$..., Name2 = ...$..., Name3 = ...$...)
+?dim() # возвращает размерность и количество значений в измерении матрицы
+?prop.table(x = ..., margin = NULL/1/2)
+?dinnames() # возвращает названия измерений матрицы
+?barplot(x = ...,
+         legend.text = T/F,
+         args.legend = list(x = 'topright'/...),
+         beside = T/F)
+?mosaicplot(x = ...)
+?ggplot()+
+  geom_bar(
+    stat = 'count'/'identify',
+    position = 'stack'/'dodge'
+  )+
+  scale_fill_manual(
+    values = c('Blue', 'Orange', ...)
+  )
+?binom.test(..., p = 0/0.1/0.11/.../1) # по умолчанию p = 0.5 
+?chiq.test(...$..., ...)$...
+?fisher.test(..., ...$...)$...
+-------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

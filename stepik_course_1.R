@@ -137,16 +137,16 @@ my_data7 <- cbind(my_data6, my_data5)
 # if
 a <- 1
 if (a > 0) {
-  print('a is winner')
+     print('a is winner')
 } else {
-  print('bruh')
+     print('bruh')
 }
 if (a > 0) {
-  print('a is winner')
+    print('a is winner')
 } else if (a < 0) {
-  print('a is loser')
+     print('a is loser')
 } else
-  print('bruh')
+     print('bruh')
 
 # ifelse
 b <- c(-1, 1)
@@ -154,32 +154,32 @@ ifelse(b > 0, 'win', 'lose')
 
 # for
 for (i in 1:100){
-  print(i)
+     print(i)
 }
 
 for (i in 1:nrow(my_data)) {
-  print(my_data$score[i])
+    print(my_data$score[i])
 }
 
 
 # for + if
 for (i in 1:nrow(my_data)) {
-  if (my_data$gender[i] == 'male'){
-    print(my_data$score[i])
-  }
+     if (my_data$gender[i] == 'male'){
+      print(my_data$score[i])
+    }
 }
 
 # for + if VS for + ifelse
 my_data$quality <- rep(NA, nrow(my_data))
 
 for (i in 1:nrow(my_data)) {
-  if (my_data$score[i] > 4) {
-    my_data$quality[i] <- 'good'
-    print(my_data$quality[i])
-  } else {
-    my_data$quality[i] <- 'bad'
-    print(my_data$quality[i])
-  }
+    if (my_data$score[i] > 4) {
+      my_data$quality[i] <- 'good'
+      print(my_data$quality[i])
+    } else {
+      my_data$quality[i] <- 'bad'
+      print(my_data$quality[i])
+    }
 }
 
 my_data$quality2 <- ifelse(my_data$score > 4, 'good', 'bad')
@@ -187,18 +187,18 @@ my_data$quality2 <- ifelse(my_data$score > 4, 'good', 'bad')
 # while
 i <- 1
 while (i > 51) {
-  print(my_data$score[i])
-  i <- i + 1
+    print(my_data$score[i])
+    i <- i + 1
 }
 
 # Задача на сравнение сосдних членов
 good_months <- NULL
 i <- 1
 while (i < length(AirPassengers)){
-  if (AirPassengers[i] < AirPassengers[i+1]){
-    good_months <- c(good_months, AirPassengers[i+1])
-  }
-  i <- i + 1
+    if (AirPassengers[i] < AirPassengers[i+1]){
+        good_months <- c(good_months, AirPassengers[i+1])
+    }
+    i <- i + 1
 }
 # ИЛИ
 good_months <- AirPassengers[-1][AirPassengers[-1] > 
@@ -210,9 +210,9 @@ moving_average <- (cs[11:145] - cs[1:135]) / 10
 # ИЛИ
 moving_average <- numeric(135)    
 last_index <- length(AirPassengers) - 9    
-for (i in 1:last_index) {    
-  end <- i + 9    
-  moving_average[i] <- mean(AirPassengers[i:end])    
+for (i in 1:last_index) {
+    end <- i + 9    
+    moving_average[i] <- mean(AirPassengers[i:end])    
 }
 -------------------------------------------------------------------------------
 # ГЛОССАРИЙ 3 УРОКА
@@ -287,8 +287,11 @@ describeBy(iris, iris$Species)
 #критериям (в соответствии с разбиением на группыб в виде матрицы, с округлением
 #для DESCRIBEBY)
 ?describe(x = ...)
-?describeBy(x = ...$..., group = list(...$..., ...$...), mat = T/F,
-            digits = 0/1/2/..., fast = T/F)
+?describeBy(x = ...$...,
+    group = list(...$..., ...$...),
+    mat = T/F,
+    digits = 0/1/2/..., fast = T/F
+)
 ?is.na
 ?na.rm
 # Функция replace проверяет объект "X" на предмет условия "LIST", если оно
@@ -303,30 +306,76 @@ boxplot(mpg ~ am, df, ylab = 'MPG')
 plot(df$mpg, df$hp)
 
 library(ggplot2)
-ggplot(df, aes(x = mpg))+
-  geom_histogram(fill = 'white', col = 'black', binwidth = 2)
-ggplot(df, aes(x = mpg, fill = am))+
-  geom_dotplot()
-ggplot(df, aes(x = mpg))+
-  geom_density(fill = 'red')
-ggplot(df, aes(x = mpg, fill = am))+
-  geom_density(alpha = 0.5)
+ggplot(
+    df,
+    aes(x = mpg)
+)+
+    geom_histogram(
+        fill = 'white',
+        col = 'black',
+        binwidth = 2
+    )
+ggplot(
+    df,
+    aes(
+        x = mpg,
+        fill = am
+    )
+)+
+    geom_dotplot()
+ggplot(
+    df,
+    aes(
+        x = mpg
+    )
+)+
+    geom_density(fill = 'red')
+ggplot(
+    df,
+    aes(
+        x = mpg,
+        fill = am
+    )
+)+
+    geom_density(alpha = 0.5)
 
-ggplot(df, aes(x = am, y = hp, col = vs))+
-  geom_boxplot()
+ggplot(
+    df,
+    aes(
+        x = am, 
+        y = hp,
+        col = vs
+    )
+)+
+    geom_boxplot()
 
-my_plot <- ggplot(df, aes(x = mpg, y = hp, col = vs, size = qsec))+
-  geom_point()
+my_plot <- ggplot(
+    df,
+    aes(
+        x = mpg,
+        y = hp,
+        col = vs,
+        size = qsec
+    )
+)+
+    geom_point()
 
-my_plot2 <- ggplot(df, aes(x = am, y = hp, col = vs))
+my_plot2 <- ggplot(
+    df,
+    aes(
+        x = am,
+        y = hp,
+        col = vs
+    )
+)
 my_plot2 + geom_boxplot()
 
 # Документация по ggplot2: https://ggplot2.tidyverse.org/reference/
 
 ggplot(airquality, aes(group = Month, x = Month, y = Ozone))+
-  geom_boxplot()
+    geom_boxplot()
 plot1 <- ggplot(mtcars, aes(x = mpg, y = disp, col = hp))+
-  geom_point()
+    geom_point()
 
 write.csv(df, "df.csv")
 save(mean_hp_vs, file = 'mean_hp_vs.RData')
@@ -337,12 +386,25 @@ save(mean_hp_vs, file = 'mean_hp_vs.RData')
 ?boxplot()
 ?plot()
 # функции модуля ggplot2
-?ggplot(..., aes(x = ..., y = ..., col = ..., fill = ..., size = ...))+
-  ?geom_histogram(binwidth = 1/2/3/...)
-  ?geom_dotplot()
-  ?geom_boxplot()
-  ?geom_density(alpha = 0.1/0.11/.../1, fill = '...', col = '...')
-  ?geom_point()
+?ggplot(
+    ...,
+    aes(
+        x = ...,
+        y = ...,
+        col = ...,
+        fill = ...,
+        size = ...
+    )
+)+
+    geom_histogram(binwidth = 1/2/3/...)
+    geom_dotplot()
+    geom_boxplot()
+    geom_density(
+        alpha = 0.1/0.11/.../1,
+        fill = '...',
+        col = '...'
+    )
+    geom_point()
 # 'col' отвечает за цвет границ, "fill" - за заливку фигуры
 ?write.csv(..., 'created_file_name.csv')
 ?save(..., file = 'created_file_name.RData')
@@ -361,7 +423,8 @@ prop.table(t2)
 prop.table(t2, 1) # сумма строк равняется 100%
 prop.table(t2, 2) # сумма столбцов равняется 100%
 
-t3 <- table(Years = grants$years_in_uni, Field = grants$field, 
+t3 <- table(Years = grants$years_in_uni,
+            Field = grants$field,
             Status = grants$status)
 dim(t3)
 
@@ -375,16 +438,37 @@ sum(HairEyeColor[,'Green','Female'])
 
 barplot(t1)
 barplot(t2)
-barplot(t2, legend.text = T, args.legend = list(x = 'topright'))
-barplot(t2, legend.text = T, args.legend = list(x = 'topright'), beside = T)
+barplot(
+    t2,
+    legend.text = T,
+    args.legend = list(x = 'topright')
+)
+barplot(
+    t2,
+    legend.text = T,
+    args.legend = list(x = 'topright'),
+    beside = T
+)
 
 mosaicplot(t2)
 
 # Задача на построение графика распределения цвета глаз по цвету волос у женщин
 mydata <- as.data.frame(HairEyeColor[, , 'Female'])
-obj <- ggplot(data = mydata, aes(x = Hair, y = Freq, fill = Eye))+
-  geom_bar(stat="identity", position = position_dodge())+
-  scale_fill_manual(values=c("Brown", "Blue", "Darkgrey", "Darkgreen"))
+obj <- ggplot(
+    data = mydata,
+    aes(
+        x = Hair,
+        y = Freq,
+        fill = Eye
+    )
+)+
+    geom_bar(
+        stat = "identity",
+        position = position_dodge()
+    )+
+        scale_fill_manual(
+            values = c("Brown", "Blue", "Darkgrey", "Darkgreen")
+        )
 
 binom.test(x = 5, n = 20, p = 0.5)
 binom.test(t1)
@@ -404,9 +488,10 @@ fisher.test(t2)
 main_stat <- chisq.test(table(diamonds$cut, diamonds$color))$statistic
 
 # Задача на поиск взаимосвязи между ценой и каратом бриллианта
-main_stat <- chisq.test(as.integer(diamonds$price >= mean(diamonds$price)), 
-                                   as.integer(diamonds$carat >= 
-                                                mean(diamonds$carat)))$statistic
+main_stat <- chisq.test(
+    as.integer(diamonds$price >= mean(diamonds$price)), 
+    as.integer(diamonds$carat >= mean(diamonds$carat))
+)$statistic
 
 #Задача на поиск взимосвязи типа коробки передач и типа двигателя
 fisher_test <- fisher.test(mtcars$am, mtcars$vs)$p
@@ -417,19 +502,20 @@ fisher_test <- fisher.test(mtcars$am, mtcars$vs)$p
 ?dim() # возвращает размерность и количество значений в измерении матрицы
 ?prop.table(x = ..., margin = NULL/1/2)
 ?dinnames() # возвращает названия измерений матрицы
-?barplot(x = ...,
-         legend.text = T/F,
-         args.legend = list(x = 'topright'/...),
-         beside = T/F)
+?barplot(
+    x = ...,
+    legend.text = T/F,
+    args.legend = list(x = 'topright'/...),
+    beside = T/F)
 ?mosaicplot(x = ...)
 ?ggplot()+
-  geom_bar(
-    stat = 'count'/'identify',
-    position = 'stack'/'dodge'
-  )+
-  scale_fill_manual(
-    values = c('Blue', 'Orange', ...)
-  )
+    geom_bar(
+        stat = 'count'/'identify',
+        position = 'stack'/'dodge'
+    )+
+        scale_fill_manual(
+            values = c('Blue', 'Orange', ...)
+        )
 ?binom.test(..., p = 0/0.1/0.11/.../1) # по умолчанию p = 0.5 
 ?chiq.test(...$..., ...)$...
 ?fisher.test(..., ...$...)$...

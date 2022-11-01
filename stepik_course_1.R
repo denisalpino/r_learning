@@ -396,14 +396,14 @@ save(mean_hp_vs, file = 'mean_hp_vs.RData')
         size = ...
     )
 )+
-    geom_histogram(binwidth = 1/2/3/...)
-    geom_dotplot()
-    geom_boxplot()
+    geom_histogram(binwidth = 1/2/3/...) # гистограма
+    geom_dotplot() # точечный график
+    geom_boxplot() # квартильный график
     geom_density(
         alpha = 0.1/0.11/.../1,
         fill = '...',
         col = '...'
-    )
+    ) # функция плотности
     geom_point()
 # 'col' отвечает за цвет границ, "fill" - за заливку фигуры
 ?write.csv(..., 'created_file_name.csv')
@@ -521,30 +521,86 @@ fisher_test <- fisher.test(mtcars$am, mtcars$vs)$p
 ?fisher.test(..., ...$...)$...
 -------------------------------------------------------------------------------
 
+df <- iris
+df1 <- subset(iris, Species != 'setosa')
 
+hist(df1$Sepal.Length)
 
+ggplot(
+    df1,
+    aes(
+        x = Sepal.Length
+    )
+)+
+    geom_histogram(
+        fill = 'white',
+        col = 'black',
+        binwidth = 0.4
+    )+
+    facet_grid(Species ~ .)
 
+ggplot(
+    df1,
+    aes(
+        x = Sepal.Length,
+        fill = Species
+    )
+)+
+    geom_density(
+        alpha = 0.5
+    )
 
+ggplot(
+    df1,
+    aes(
+        Species,
+        Sepal.Length
+    )
+)+
+    geom_boxplot()
 
+shapiro.test(df1$Sepal.Length)
+shapiro.test(df1$Sepal.Length[df1$Species == 'versicolor'])
+shapiro.test(df1$Sepal.Length[df1$Species == 'virginica'])
 
+bartlett.test(Sepal.Length ~ Species, df1)
 
+test1 <- t.test(
+    Sepal.Length ~ Species,
+    df1,
+    var.equal = T
+)
 
+t.test(df1$Sepal.Length, mu = 8)
 
+t.test(df1$Petal.Length, df1$Petal.Width, paired = T)
 
+t.test($... ~ $..., data) #если первая переменная количественная,а вторая фактор
+t.test(...$..., ...$...) # если обе переменные количественные
+t.test(...$..., ...$..., paired = T) # для зависимых выборок
 
+shapiro.test($...) # проверка на нормальность распределения переменной $...
+# но не удобно когда есть группирующая факторная переменная
 
+by(...$..., INDICES = ...$..., shapiro.test) # проверка на
+# нормальность переменной $... в трех разных группах в соответствии с
+# переменной $...
 
+bartlett.test(mpg ~ am, mtcars) #Критерий Бартлетта, проверка на гомогенность
+# дисперсий
 
+# Задача на сравнение средней длины зубов морских свинок
+t_stat <- t.test(subset(
+    ToothGrowth$len,
+    ToothGrowth$supp == 'OJ' & ToothGrowth$dose == 0.5
+), subset(
+    ToothGrowth$len,
+    ToothGrowth$supp == 'VC' & ToothGrowth$dose == 2.0
+))$statistic
 
-
-
-
-
-
-
-
-
-
+# Задача на сравнение показателя давления до и после лечения
+data <- read.csv(url('https://stepic.org/media/attachments/lesson/11504/lekarstva.csv'))
+t.test(data$Pressure_before, data$Pressure_after, paired=T)$statistic
 
 
 
